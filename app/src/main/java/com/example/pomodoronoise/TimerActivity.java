@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 public class TimerActivity extends AppCompatActivity {
@@ -30,6 +32,11 @@ public class TimerActivity extends AppCompatActivity {
 
         // Capture the layout's TextView and set the string as its text
         TextView countdownText = findViewById(R.id.countdownText);
-        countdownText.setText(selectedNoise);
+        countdownText.setText(focusTime.toString());
+    }
+
+    /** Called when the user clicks the stop button */
+    public void onStopButtonClicked(View view) {
+        finish();
     }
 }
