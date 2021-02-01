@@ -7,10 +7,150 @@
     tools:context=".PomodoroNoise">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/pomodoroOptionsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="160dp"
-        tools:layout_editor_absoluteY="415dp" />
+        android:layout_marginTop="32dp"
+        android:text="Pomodoro Timer Options"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/noiseText">
+
+        <RadioButton
+            android:id="@+id/pinkNoise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onNoiseRadioButtonClicked"
+            android:text="@string/pink_noise" />
+
+        <RadioButton
+            android:id="@+id/brownNoise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onNoiseRadioButtonClicked"
+            android:text="@string/brown_noise" />
+
+        <RadioButton
+            android:id="@+id/whiteNoise"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onNoiseRadioButtonClicked"
+            android:text="@string/white_noise" />
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/focusTimeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Default 25 minutes"
+        android:inputType="number"
+        android:text="25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/focusTimeText" />
+
+    <TextView
+        android:id="@+id/focusTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Focus Time (Minutes)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pomodoroOptionsText" />
+
+    <TextView
+        android:id="@+id/normalBreakTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Normal Break Time (Minutes)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/focusTimeInput" />
+
+    <EditText
+        android:id="@+id/breakTimeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Default 5 minutes"
+        android:inputType="number"
+        android:text="5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/normalBreakTimeText" />
+
+    <TextView
+        android:id="@+id/longBreakTimeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Long Break Time (Minutes)"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/breakTimeInput" />
+
+    <EditText
+        android:id="@+id/longBreakTimeInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Default 20 mintues"
+        android:inputType="number"
+        android:text="20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longBreakTimeText" />
+
+    <Switch
+        android:id="@+id/limitRoundsSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Limit Pomodoro Rounds"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/longBreakTimeInput" />
+
+    <EditText
+        android:id="@+id/limitRoundsInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:text="4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/limitRoundsSwitch" />
+
+    <Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:onClick="startTimer"
+        android:text="Start"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/limitRoundsInput" />
+
+    <TextView
+        android:id="@+id/noiseText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Pick Your Noise"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
