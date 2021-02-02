@@ -74,12 +74,43 @@ public class PomodoroNoise extends AppCompatActivity {
         Switch limitRoundsSwitch = ((Switch) this.findViewById(R.id.limitRoundsSwitch));
         EditText desiredRoundsInput = ((EditText) this.findViewById(R.id.limitRoundsInput));
 
-        // Convert inputs to integers
-        Integer focusTime = Integer.parseInt(focusTimeInput.getText().toString());
-        Integer breakTime = Integer.parseInt(breakTimeInput.getText().toString());
-        Integer longBreakTime = Integer.parseInt(longBreakTimeInput.getText().toString());
+        // Convert inputs to integers using defaults in case of errors
+        Integer focusTime = 25;
+        try {
+            focusTime = Integer.parseInt(focusTimeInput.getText().toString());
+        } catch (NumberFormatException numExc) {
+        }
+        if (focusTime > 90) {
+            focusTime = 90;
+        }
+
+        Integer breakTime = 5;
+        try {
+            breakTime = Integer.parseInt(breakTimeInput.getText().toString());
+        } catch (NumberFormatException numExc) {
+        }
+        if (breakTime > 90) {
+            breakTime = 90;
+        }
+
+        Integer longBreakTime = 20;
+        try {
+            longBreakTime = Integer.parseInt(longBreakTimeInput.getText().toString());
+        } catch (NumberFormatException numExc) {
+        }
+        if (longBreakTime > 90) {
+            longBreakTime = 90;
+        }
+
         Boolean limitRounds = limitRoundsSwitch.isChecked();
-        Integer desiredRounds = Integer.parseInt(desiredRoundsInput.getText().toString());
+        Integer desiredRounds = 4;
+        try {
+            desiredRounds = Integer.parseInt(desiredRoundsInput.getText().toString());
+        } catch (NumberFormatException numExc) {
+        }
+        if (desiredRounds > 20) {
+            desiredRounds = 20;
+        }
 
         // Put values to time activity
         intent.putExtra(SELECTED_NOISE, selectedNoise);

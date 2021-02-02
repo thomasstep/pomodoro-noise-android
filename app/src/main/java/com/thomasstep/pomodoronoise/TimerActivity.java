@@ -17,9 +17,12 @@ public class TimerActivity extends AppCompatActivity {
     protected Boolean limitRounds = false;
     protected Integer desiredRounds = 4;
 
+    protected Integer pomodoroIteration = 1;
+
     protected MediaPlayer audioPlayer;
     protected CountDownTimer focusCountdownTimer;
     protected CountDownTimer breakCountdownTimer;
+    protected CountDownTimer longBreakCountdownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,43 +44,48 @@ public class TimerActivity extends AppCompatActivity {
 
         audioPlayer = MediaPlayer.create(this, selectedNoise);
 
-        focusCountdownTimer = new CountDownTimer(20000, 1000) {
+        // TODO * 1000 => * 60000
+        focusCountdownTimer = new CountDownTimer(focusTime * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int secsUntilFinish = (int) millisUntilFinished / 1000;
-                int minutes = secsUntilFinish / 60 % 60;
-                int seconds = secsUntilFinish % 60;
-                String secondString = String.valueOf(seconds);
-                if (seconds < 10) {
-                    secondString = "0" + seconds;
-                }
-                countdownText.setText(minutes + ":" + secondString + " left of focusing");
+                String timeLeftString = getTimeString(millisUntilFinished, " left of focusing");
+                countdownText.setText(timeLeftString);
             }
 
             @Override
             public void onFinish() {
                 pauseNoise();
-                breakCountdownTimer.start();
+                if (pomodoroIteration % 4 == 0) {
+                    longBreakCountdownTimer.start();
+                } else {
+                    breakCountdownTimer.start();
+                }
             }
         };
 
-        breakCountdownTimer = new CountDownTimer(20000, 1000) {
+        breakCountdownTimer = new CountDownTimer(breakTime * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                int secsUntilFinish = (int) millisUntilFinished / 1000;
-                int minutes = secsUntilFinish / 60 % 60;
-                int seconds = secsUntilFinish % 60;
-                String secondString = String.valueOf(seconds);
-                if (seconds < 10) {
-                    secondString = "0" + seconds;
-                }
-                countdownText.setText(minutes + ":" + secondString + " left of the break");
+                String timeLeftString = getTimeString(millisUntilFinished, " left of the break");
+                countdownText.setText(timeLeftString);
             }
 
             @Override
             public void onFinish() {
-                startNoise();
-                focusCountdownTimer.start();
+                endEitherBreakTimer();
+            }
+        };
+
+        longBreakCountdownTimer = new CountDownTimer(longBreakTime * 60000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                String timeLeftString = getTimeString(millisUntilFinished, " left of the long break");
+                countdownText.setText(timeLeftString);
+            }
+
+            @Override
+            public void onFinish() {
+                endEitherBreakTimer();
             }
         };
 
@@ -89,6 +97,9 @@ public class TimerActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         audioPlayer.stop();
+        focusCountdownTimer.cancel();
+        breakCountdownTimer.cancel();
+        longBreakCountdownTimer.cancel();
     }
 
     /** Called when the user clicks the stop button */
@@ -105,6 +116,28 @@ public class TimerActivity extends AppCompatActivity {
     }
 
     protected void startPomodoroNoise() {
+        startNoise();
+        focusCountdownTimer.start();
+    }
+
+    protected String getTimeString(long millisUntilFinished, String suffix) {
+        int secsUntilFinish = (int) millisUntilFinished / 1000;
+        int minutes = secsUntilFinish / 60;
+        int seconds = secsUntilFinish % 60;
+        String secondString = String.valueOf(seconds);
+        if (seconds < 10) {
+            secondString = "0" + seconds;
+        }
+        String result = minutes + ":" + secondString + suffix;
+        return result;
+    }
+
+    protected void endEitherBreakTimer() {
+        pomodoroIteration += 1;
+        if (limitRounds && pomodoroIteration > desiredRounds) {
+            finish();
+        }
+
         startNoise();
         focusCountdownTimer.start();
     }
