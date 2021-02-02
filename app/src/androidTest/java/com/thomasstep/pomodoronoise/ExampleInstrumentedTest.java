@@ -1,4 +1,4 @@
-package com.example.pomodoronoise;
+package com.thomasstep.pomodoronoise;
 
 import android.content.Context;
 

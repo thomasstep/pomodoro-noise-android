@@ -1,4 +1,4 @@
-package com.example.pomodoronoise;
+package com.thomasstep.pomodoronoise;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,7 +18,7 @@ public class PomodoroNoise extends AppCompatActivity {
     public static final String LIMIT_ROUNDS = "com.thomasstep.pomodoronoise.LIMIT_ROUNDS";
     public static final String DESIRED_ROUNDS = "com.thomasstep.pomodoronoise.DESIRED_ROUNDS";
 
-    protected String selectedNoise = "Brown";
+    protected Integer selectedNoise = R.raw.brown;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +50,15 @@ public class PomodoroNoise extends AppCompatActivity {
         switch(view.getId()) {
             case R.id.pinkNoise:
                 if (checked)
-                    selectedNoise = "Pink";
+                    selectedNoise = R.raw.pink;
                     break;
             case R.id.brownNoise:
                 if (checked)
-                    selectedNoise = "Brown";
+                    selectedNoise = R.raw.brown;
                     break;
             case R.id.whiteNoise:
                 if (checked)
-                    selectedNoise = "White";
+                    selectedNoise = R.raw.white;
                     break;
         }
     }
