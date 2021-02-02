@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ public class TimerActivity extends AppCompatActivity {
     protected Integer desiredRounds = 4;
 
     protected MediaPlayer audioPlayer;
+    protected CountDownTimer focusCountdownTimer;
+    protected CountDownTimer breakCountdownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,48 @@ public class TimerActivity extends AppCompatActivity {
         countdownText.setText(focusTime.toString());
 
         audioPlayer = MediaPlayer.create(this, selectedNoise);
-        startNoise();
+
+        focusCountdownTimer = new CountDownTimer(20000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int secsUntilFinish = (int) millisUntilFinished / 1000;
+                int minutes = secsUntilFinish / 60 % 60;
+                int seconds = secsUntilFinish % 60;
+                String secondString = String.valueOf(seconds);
+                if (seconds < 10) {
+                    secondString = "0" + seconds;
+                }
+                countdownText.setText(minutes + ":" + secondString + " left of focusing");
+            }
+
+            @Override
+            public void onFinish() {
+                pauseNoise();
+                breakCountdownTimer.start();
+            }
+        };
+
+        breakCountdownTimer = new CountDownTimer(20000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                int secsUntilFinish = (int) millisUntilFinished / 1000;
+                int minutes = secsUntilFinish / 60 % 60;
+                int seconds = secsUntilFinish % 60;
+                String secondString = String.valueOf(seconds);
+                if (seconds < 10) {
+                    secondString = "0" + seconds;
+                }
+                countdownText.setText(minutes + ":" + secondString + " left of the break");
+            }
+
+            @Override
+            public void onFinish() {
+                startNoise();
+                focusCountdownTimer.start();
+            }
+        };
+
+        startPomodoroNoise();
     }
 
     /** onDestroy() is also called when finish() is called (see onStopButtonClicked()) */
@@ -58,5 +102,10 @@ public class TimerActivity extends AppCompatActivity {
 
     protected void pauseNoise() {
         audioPlayer.pause();
+    }
+
+    protected void startPomodoroNoise() {
+        startNoise();
+        focusCountdownTimer.start();
     }
 }
