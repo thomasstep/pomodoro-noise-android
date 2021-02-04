@@ -44,11 +44,10 @@ public class TimerActivity extends AppCompatActivity {
 
         audioPlayer = MediaPlayer.create(this, selectedNoise);
 
-        // TODO * 1000 => * 60000
         focusCountdownTimer = new CountDownTimer(focusTime * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                String timeLeftString = getTimeString(millisUntilFinished, " left of focusing");
+                String timeLeftString = getTimeString(millisUntilFinished, getString(R.string.focus_suffix));
                 countdownText.setText(timeLeftString);
             }
 
@@ -66,7 +65,7 @@ public class TimerActivity extends AppCompatActivity {
         breakCountdownTimer = new CountDownTimer(breakTime * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                String timeLeftString = getTimeString(millisUntilFinished, " left of the break");
+                String timeLeftString = getTimeString(millisUntilFinished, getString(R.string.break_suffix));
                 countdownText.setText(timeLeftString);
             }
 
@@ -79,7 +78,7 @@ public class TimerActivity extends AppCompatActivity {
         longBreakCountdownTimer = new CountDownTimer(longBreakTime * 60000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                String timeLeftString = getTimeString(millisUntilFinished, " left of the long break");
+                String timeLeftString = getTimeString(millisUntilFinished, getString(R.string.long_break_suffix));
                 countdownText.setText(timeLeftString);
             }
 
@@ -128,7 +127,7 @@ public class TimerActivity extends AppCompatActivity {
         if (seconds < 10) {
             secondString = "0" + seconds;
         }
-        String result = minutes + ":" + secondString + suffix;
+        String result = minutes + ":" + secondString + " " + suffix;
         return result;
     }
 

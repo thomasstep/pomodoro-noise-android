@@ -3,4 +3,19 @@
     <string name="pink_noise">Pink Noise</string>
     <string name="brown_noise">Brown Noise</string>
     <string name="white_noise">White Noise</string>
+    <string name="pick_your_noise_text">Pick Your Noise</string>
+    <string name="pomodoro_options">Pomodoro Timer Options</string>
+    <string name="focus_input_text">Focus Time (Minutes)</string>
+    <string name="focus_input_hint_text">Default 25 minutes</string>
+    <string name="normal_break_input_text">Normal Break Time (Minutes)</string>
+    <string name="normal_break_input_hint_text">Default 5 minutes</string>
+    <string name="long_break_input_text">Long Break Time (Minutes)</string>
+    <string name="long_break_input_hint_text">Default 20 mintues</string>
+    <string name="limit_rounds_switch_text">Limit Pomodoro Rounds</string>
+    <string name="limit_rounds_input_hint_text">Default 4 rounds</string>
+    <string name="start_button_text">Start</string>
+    <string name="stop_button_text">Stop</string>
+    <string name="focus_suffix">left of focusing</string>
+    <string name="break_suffix">left of the break</string>
+    <string name="long_break_suffix">left of the long break</string>
 </resources>
