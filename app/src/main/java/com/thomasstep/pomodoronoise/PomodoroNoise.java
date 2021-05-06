@@ -10,6 +10,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Switch;
 
+// Ads
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+// Finish Ads
+
+
 public class PomodoroNoise extends AppCompatActivity {
     public static final String SELECTED_NOISE = "com.thomasstep.pomodoronoise.SELECTED_NOISE";
     public static final String FOCUS_TIME = "com.thomasstep.pomodoronoise.FOCUS_TIME";
@@ -20,10 +29,25 @@ public class PomodoroNoise extends AppCompatActivity {
 
     protected Integer selectedNoise = R.raw.brown;
 
+    private AdView mAdView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pomodoro_noise);
+
+        // Ads
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        // Finish Ads
+
         RadioButton brownNoiseRadioButton = ((RadioButton) this.findViewById(R.id.brownNoise));
         brownNoiseRadioButton.setChecked(true);
 
